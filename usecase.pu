@@ -1,0 +1,5 @@
+@startuml
+:Kamera: --> (Opredelit zakryto li solnce)
+:Kamera: --> (Vklyuchit dizer)
+:Kamera: --> (Vyklyuchit dizer)
+@enduml
