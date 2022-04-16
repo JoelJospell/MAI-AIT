@@ -1,0 +1,61 @@
+@startuml
+class Камера
+{
+   cv::VideoCapture cameraUnit;
+
+   Camera();
+   cv::Mat getPhoto();
+}
+
+class Снимок
+{
+   cv::Mat frame;
+   float brightness;
+   bool weather;
+   int[2] sunPos, cloudPos;
+
+   Photo();
+   void setBrightness();
+   void setWeather();
+   void setSunPosition();
+   void setCouldPosition();
+}
+
+class Система
+{
+   Camera camera;
+   Photo previousPhoto;
+   Photo currentPhoto;
+   
+   MainMachine();
+   void updatePhoto(camera);
+   void calculateSpeed();
+   void calculateTime();
+   void uploadData();
+   void switchGenerator();
+
+   void start();
+}
+
+class Генератор
+{
+   bool state;
+
+   void switch();
+}
+
+class Память
+{
+  map<time_t, cv::Mat> data;
+
+  void getData();
+  cv::Mat sendData(time_t);
+}
+
+Камера -o Система : контроль <
+Снимок --o Система : получает <
+Камера - Снимок
+Система - Генератор : переключает >
+Система -- Память : загружает >
+Память - Пользователь: использует <
+@enduml
